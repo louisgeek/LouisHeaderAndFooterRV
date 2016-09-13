@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HeaderAndFooterRVLib/HeaderAndFooterRVLib.iml" filepath="$PROJECT_DIR$/HeaderAndFooterRVLib/HeaderAndFooterRVLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LouisHeaderAndFooterRV.iml" filepath="$PROJECT_DIR$/LouisHeaderAndFooterRV.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
