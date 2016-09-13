@@ -1,5 +1,5 @@
 # LouisHeaderAndFooterRV
-HeaderAndFooterRecyclerView  带头部header和尾部footer的封装   通用Adapter ViewHolder
+HeaderAndFooterRecyclerView  带emptyview、头部header和尾部footer的封装   通用Adapter ViewHolder
 
 
      
