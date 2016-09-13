@@ -9,4 +9,10 @@
         android:id="@+id/id_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+
+<!--    <com.louisgeek.headerandfooterrecycleviewlib.RecyclerViewWithEmpty
+        android:id="@+id/id_rvwe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>-->
 </RelativeLayout>
