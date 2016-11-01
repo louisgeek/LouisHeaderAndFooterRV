@@ -5,7 +5,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +33,11 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
     public static final int TYPE_FOOTER = 1;
     public static final int TYPE_NORMAL = 2;
     private static final String TAG = "HeaderRecyclerAdapter";
-    protected List<T> dataList;
+    protected List<T> mDataList;
     private Context mContext;
 
     public HeaderFooterRecyclerAdapter(List<T> dataList,RecyclerView recyclerView, int mItemLayoutId) {
-        this.dataList = dataList;
+        mDataList = dataList;
         mContext=recyclerView.getContext();
         mRecyclerView=recyclerView;
 
@@ -88,7 +87,12 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
 
 
     public void refreshDataList(List<T> dataList) {
-        dataList.addAll(dataList);
+        mDataList.clear();
+        mDataList.addAll(dataList);
+        notifyDataSetChanged();
+    }
+    public void appendDataList(List<T> dataList) {
+        mDataList.addAll(dataList);
         notifyDataSetChanged();
     }
 
@@ -108,7 +112,7 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-        Log.i(TAG, "onAttachedToRecyclerView: ");
+       // Log.i(TAG, "onAttachedToRecyclerView: ");
 
         //为GridLayoutManager 合并头布局的跨度
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
@@ -183,7 +187,7 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        Log.i(TAG, "onBindViewHolder: ");
+     //   Log.i(TAG, "onBindViewHolder: ");
         //
         //is StaggeredGridLayoutManager  config  header FullSpan
         ViewGroup.LayoutParams vg_lp = viewHolder.itemView.getLayoutParams();
@@ -221,7 +225,7 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
         }
        final int pos = realPos;
 
-        final T data = dataList.get(pos);
+        final T data = mDataList.get(pos);
         onBindViewHolderInner(viewHolder, pos, data);
 
        /* if(viewHolder instanceof MyRecyclerViewViewHolder) {
@@ -231,7 +235,7 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
                 @Override
                 public void onClick(View v) {
                     if(onItemClickListener != null) {
-                        onItemClickListener.onItemClick(pos, data);
+                        onItemClickListener.onItemClick(v,pos, data);
                     }
                 }
             });
@@ -267,13 +271,13 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
     @Override
     public int getItemCount() {
         if (mHeaderView != null && mFooterView != null) {
-            return dataList.size() + 1 + 1;
+            return mDataList.size() + 1 + 1;
         } else if (mHeaderView != null) {
-            return dataList.size() + 1;
+            return mDataList.size() + 1;
         } else if (mFooterView != null) {
-            return dataList.size() + 1;
+            return mDataList.size() + 1;
         }
-        return dataList.size();
+        return mDataList.size();
     }
 
 /*    class MyRecyclerViewViewHolder extends RecyclerView.ViewHolder {
@@ -290,7 +294,7 @@ public abstract class HeaderFooterRecyclerAdapter<T> extends RecyclerView.Adapte
     }*/
 
     public  interface OnItemClickListener {
-        void onItemClick(int position, Object data);
+        void onItemClick(View itemView,int position, Object data);
     }
 
     private OnItemClickListener onItemClickListener;
